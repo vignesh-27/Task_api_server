@@ -6,7 +6,7 @@ const options = {
 };
 
 module.exports = {
-  findAll: async (app, req, res) => {
+  findAll: async (req, res) => {
     const taskData = await initializeRedis.readData("getAllTask");
 
     if (taskData.length) {
@@ -24,7 +24,7 @@ module.exports = {
     }
   },
 
-  create: (app, req, res) => {
+  create: (req, res) => {
     const taskObj = new Todo({
       title: "Student Form",
       description:
@@ -48,17 +48,17 @@ module.exports = {
     }
   },
 
-  update: (app, req, res) => {
+  update: (req, res) => {
     const taskObj = new Todo({
-      _id: "695cc36f4819f39e82cb29f1",
+      _id: "695cc3444819f39e82cb29ee",
       title: "Student Form",
       description:
         "Create student record with tilte, description, priority and status",
       priority: "High",
-      status: "Inprogress",
+      status: "resolved",
     });
 
-    const taskId = "695cc36f4819f39e82cb29f1";
+    const taskId = "695cc3444819f39e82cb29ee";
     const err = taskObj.validateSync();
     if (err) {
       const custErr = err.errors[Object.keys(err.errors)];
@@ -75,7 +75,7 @@ module.exports = {
     }
   },
 
-  deleteTask: (app, req, res) => {
+  deleteTask: (req, res) => {
     const taskId = "695cc36f4819f39e82cb29f1";
     Todo.findOneAndDelete({ _id: taskId })
       .then((deletedData) => {

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const taskCollection = require("./Models/task.js");
 const app = express();
 const port = 3000;
@@ -7,6 +8,8 @@ const mongoose = require("mongoose");
 const initializeRedis = require("./middleware/redis.js");
 
 app.use(express.json());
+
+app.use(cors());
 
 main().catch((err) => console.log(err));
 
@@ -17,20 +20,20 @@ async function main() {
 
 initializeRedis.initializeRedisClient();
 
-app.get("/createTask", (req, res) => {
-  taskCollection.create(app, req, res);
+app.post("/createTask", (req, res) => {
+  taskCollection.create(req, res);
 });
 
-app.get("/findTask", (req, res) => {
-  taskCollection.findAll(app, req, res);
+app.get("/api/findTask", (req, res) => {
+  taskCollection.findAll(req, res);
 });
 
-app.get("/updateTask", (req, res) => {
-  taskCollection.update(app, req, res);
+app.patch("/updateTask", (req, res) => {
+  taskCollection.update(req, res);
 });
 
-app.get("/deleteTask", (req, res) => {
-  taskCollection.deleteTask(app, req, res);
+app.post("/deleteTask", (req, res) => {
+  taskCollection.deleteTask(req, res);
 });
 
 app.listen(port, () => {
