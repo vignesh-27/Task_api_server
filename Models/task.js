@@ -25,13 +25,8 @@ module.exports = {
   },
 
   create: (req, res) => {
-    const taskObj = new Todo({
-      title: "Student Form",
-      description:
-        "Create student record with tilte, description, priority and status",
-      priority: "Medium",
-      status: "backlog",
-    });
+    const reqData = req.body;
+    const taskObj = new Todo(reqData);
     const err = taskObj.validateSync();
     if (err) {
       const custErr = err.errors[Object.keys(err.errors)];
@@ -49,16 +44,10 @@ module.exports = {
   },
 
   update: (req, res) => {
-    const taskObj = new Todo({
-      _id: "695cc3444819f39e82cb29ee",
-      title: "Student Form",
-      description:
-        "Create student record with tilte, description, priority and status",
-      priority: "High",
-      status: "resolved",
-    });
+    const reqData = req.body;
+    const taskObj = new Todo(reqData);
 
-    const taskId = "695cc3444819f39e82cb29ee";
+    const taskId = reqData?._id;
     const err = taskObj.validateSync();
     if (err) {
       const custErr = err.errors[Object.keys(err.errors)];
@@ -76,7 +65,7 @@ module.exports = {
   },
 
   deleteTask: (req, res) => {
-    const taskId = "695cc36f4819f39e82cb29f1";
+    const taskId = req.body?._id;
     Todo.findOneAndDelete({ _id: taskId })
       .then((deletedData) => {
         initializeRedis.deleteData("getAllTask");
