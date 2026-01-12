@@ -8,11 +8,11 @@ const blogSchema = new Schema({
   },
   description: String,
   priority: {
-    type: String,
+    type: Number,
     required: [true, "Priority is required"],
   },
   status: {
-    type: String,
+    type: Number,
     required: [true, "Status is required"],
   },
 });

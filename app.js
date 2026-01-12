@@ -20,7 +20,7 @@ async function main() {
 
 initializeRedis.initializeRedisClient();
 
-app.post("/createTask", (req, res) => {
+app.post("/api/createTask", (req, res) => {
   taskCollection.create(req, res);
 });
 
@@ -28,11 +28,11 @@ app.get("/api/findTask", (req, res) => {
   taskCollection.findAll(req, res);
 });
 
-app.patch("/updateTask", (req, res) => {
+app.patch("/api/updateTask", (req, res) => {
   taskCollection.update(req, res);
 });
 
-app.post("/deleteTask", (req, res) => {
+app.post("/api/deleteTask", (req, res) => {
   taskCollection.deleteTask(req, res);
 });
 
