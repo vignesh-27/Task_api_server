@@ -32,6 +32,7 @@ module.exports = {
       const custErr = err.errors[Object.keys(err.errors)];
       res.status(406).send(custErr.message);
     } else {
+      taskObj["updatedAt"] = new Date();
       Todo.create(taskObj)
         .then((resData) => {
           initializeRedis.deleteData("getAllTask");
@@ -46,7 +47,7 @@ module.exports = {
   update: (req, res) => {
     const reqData = req.body;
     const taskObj = new Todo(reqData);
-
+    taskObj["updatedAt"] = new Date();
     const taskId = reqData?._id;
     const err = taskObj.validateSync();
     if (err) {

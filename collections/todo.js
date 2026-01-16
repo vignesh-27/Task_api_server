@@ -15,6 +15,9 @@ const blogSchema = new Schema({
     type: Number,
     required: [true, "Status is required"],
   },
+  updatedAt: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("todo", blogSchema);
